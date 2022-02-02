@@ -1,0 +1,279 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins:wght@400;600&display=swap');
+
+// Intial setup
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html{
+    font-size: 16px;
+}
+
+// Variables
+
+$violet: hsl(257,40%,49%);
+$soft-magenta: hsl(300,69%,71%);
+$img-width: 55.2%;
+
+// Mixins
+
+@mixin flex-align($align, $justify){
+    display: flex;
+    align-items: $align;
+    justify-content: $justify;
+}
+
+@mixin min-all($min-width, $min-height){
+    min-width: $min-width;
+    min-height: $min-height;
+}
+
+
+// Main styles
+
+body{
+    font-family: 'Open Sans', sans-serif;
+    color: white;
+    background: $violet;
+    overflow-x: hidden;
+}
+
+@for $i from 1 through 6{
+    h#{$i}{
+        font-weight: 400;
+        font-family: 'Poppins', sans-serif;
+    }
+}
+
+// Components
+
+.attribution{
+    width:100%;
+    background: hsl(0,0%,30%);
+    padding: 1rem;
+    text-align: center;
+    color: white;
+    text-transform: uppercase;
+
+    a{
+        color: rgb(182, 182, 182);
+        text-decoration: none;
+    }
+}
+
+.container{
+    @include min-all(100vw, 100vh);
+    @include flex-align(center, center);
+    max-width:1440px;
+    flex-wrap:wrap;
+    line-height: 1.5;
+    padding: 2.5em 4.8em;
+    background-image: url(../images/bg-desktop.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.logo{
+    @include flex-align(center, flex-start);
+    align-self: flex-start;
+    text-align: left;
+    width:100%;
+
+
+    &__img{
+        padding-top: .8em;
+        margin-left: -8px;
+        max-width: 215px;
+    }
+}
+
+.flex-container{
+    @include flex-align(center, center);
+    width:100%;
+    padding-top: 5em;
+}
+
+.intro{
+    padding-left: 3em;
+    padding-right: 1em;
+    margin-top: 2.8em;
+    align-self: stretch;
+    width: 100% - $img-width;
+
+    &__title{
+        font-size: 2.5em;
+        font-weight: 600;
+        margin-bottom: .5em;
+    }
+
+    &__text{
+        letter-spacing: .06em;
+        line-height: 1.8em;
+        margin-bottom: 1.5em;
+    }
+
+    &__btn{
+        align-self: flex-start;
+    }
+
+}
+
+.btn{
+    font-family: 'Poppins', sans-serif;
+    display:block;
+    background-color:white;
+    max-width: 200px;
+    text-align: center;
+    color: $violet;
+    padding: .8em 1.2em;
+    border-radius: 2em;
+    font-size: 1.17em;
+    text-decoration: none;
+    box-shadow: 0px .5em .5em 0px rgba(0,0,0,0.35);
+    transition: all 0.3s ease-in-out;
+
+    &:hover{
+        background-color: $soft-magenta;
+        color: white;
+    }
+}
+
+.img-container{
+    width: $img-width;
+    max-width: 700px;
+
+    &__img{
+        width:100%;
+    }
+}
+
+footer{
+    align-self: flex-end;
+    @include flex-align(center, flex-end);
+    width:100%;
+    margin-top: 2em;
+}
+
+
+.social {
+    @include flex-align(center, center);
+    gap: .9em;
+    font-size: 1.15rem;
+
+    &__icon {
+        width: 2.2em;
+        height: 2.2em;
+        border-radius: 50%;
+        font-weight: 700;
+        border: 1px solid white;
+        @include flex-align(center, center);
+        transition: all 0.2s ease-in-out;
+        cursor:pointer;
+
+        &:hover {
+            border: 1px solid $soft-magenta;
+            color:$soft-magenta;
+        }
+    }
+
+}
+
+@media only screen and (max-width:1000px){
+    $img-width: 50%;
+
+    html{
+        font-size: 14px;
+    }
+
+    .img-container{
+        width: $img-width;
+    }
+
+    .intro{
+        width: 100% - $img-width;
+    }
+
+
+    
+}
+
+@media only screen and (max-width:800px){
+
+    .container{
+        background-image: url(../images/bg-mobile.svg);
+    }
+
+    html{
+        font-size: 12px;
+    }
+
+    .flex-container{
+        flex-direction: column; 
+    }
+
+    .img-container, .intro{
+        width: 100%;
+    }
+
+    .intro{
+        padding:0;
+        max-width: 500px;
+        margin: 0 auto;
+        margin-top: 5em;
+
+        &__text{
+            font-size: 1.25em;
+        }
+    }
+
+    .img-container{
+        max-width: 500px;
+    }
+}
+
+@media only screen and (max-width:400px){
+
+    .logo{
+        &__img{
+            max-width: 150px;
+        }
+    }
+
+    html{
+        font-size: 9.5px;
+    }
+
+    .intro{
+        text-align:center;
+
+        &__btn{
+            align-self: center;
+            margin: 0 auto;
+        }
+    }
+    
+    footer{
+        justify-content: center;
+    }
+}
+
+$screen: 400px;
+$size: 9.5px;
+
+@while $screen > 0{
+    $screen: $screen - 50px;
+    $size: $size - 1px;
+
+
+    @media only screen and (max-width:$screen){
+        html{
+            font-size: $size;
+        }
+    }
+}
+
+
+
+
